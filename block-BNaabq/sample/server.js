@@ -23,7 +23,7 @@ app.use('/about', (req, res, next) => {
     res.end('About page')
 })
 app.get('/', (req, res) => {
-    req.send(`welcome to server`);
+    res.send(`welcome to server`);
 })
 
 app.listen(3000, () => {
