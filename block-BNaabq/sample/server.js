@@ -1,21 +1,26 @@
-const { urlencoded } = require('express');
+
 var express = require('express');
+var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+
 var app = express();
 
-// app.use((req, res, next) => {
-//     console.log(req.method, req,url)
-//     next();
-// })
-
-app.use(logger('dev'));
-
 app.use(express.json());
-
-app.use(urlencoded({extended: false}));
-
+app.use(express.urlencoded({extended: false}));
 app.use(express.static(__dirname + '/public'));
 
+app.use(cookieParser());
+
+app.use(logger('tiny'));
+
+app.use((req, res, next) => {
+    console.log(req.cookies);
+});
+
+app.use('/about', (req, res, next) => {
+    res.cookie('username', 'xyz');
+    res.end('About page')
+})
 app.get('/', (req, res) => {
     req.send(`welcome to server`);
 })
