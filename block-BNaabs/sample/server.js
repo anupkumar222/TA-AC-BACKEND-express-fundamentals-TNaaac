@@ -1,13 +1,23 @@
+const { urlencoded } = require('express');
 var express = require('express');
-
 var app = express();
 
+//middlewares
+
+app.use(express());
+app.use(express.urlencoded({extended: false}));
+app.use(express.static(__dirname + "/public"))
+
 app.get('/', (req, res) => {
-    res.send('welcome');
+    res.sendFile(__dirname + "/index.html");
 });
 
-app.get('/users', (req, res) => {
-    res.send('users page');
+app.get('/new', (req, res) => {
+    res.sendFile(__dirname + "/new.html");
+})
+
+app.post('/new', (req, res) => {
+    res.json(req.body);
 })
 
 app.get('/users/:username', (req, res) => {
