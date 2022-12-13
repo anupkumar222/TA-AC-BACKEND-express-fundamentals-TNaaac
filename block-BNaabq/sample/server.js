@@ -15,6 +15,7 @@ app.use(logger('tiny'));
 
 app.use((req, res, next) => {
     console.log(req.cookies);
+    next();
 });
 
 app.use('/about', (req, res, next) => {
